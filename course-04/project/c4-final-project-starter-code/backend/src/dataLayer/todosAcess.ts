@@ -61,7 +61,7 @@ export class TodosAccess {
 
   async createTodo(todo: TodoItem): Promise<TodoItem> {
 
-    if (todo.name)
+    if (!todo.name)
     throw new Error('Todo name can not bank')
 
     await this.docClient.put({
@@ -100,7 +100,7 @@ export class TodosAccess {
         ":name": todoItem.name,
         ":dueDate": todoItem.dueDate
       }
-      let updateExpression = "set done = :done, dueDate=:dueDate, #n=:name"
+      let updateExpression = "set done = :done, dueDate=:dueDate, #n=:name"      
 
       if(todoItem.attachmentUrl !== undefined){
         

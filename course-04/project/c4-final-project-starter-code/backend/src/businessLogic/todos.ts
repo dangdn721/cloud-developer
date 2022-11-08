@@ -28,7 +28,7 @@ export async function createTodo(
     createdAt:  new Date().toISOString(),
     name: createTodoRequest.name,
     dueDate: createTodoRequest.dueDate,
-    attachmentUrl:createTodoRequest.attachmentUrl,
+    attachmentUrl: '',
     done: false
   })
 }
@@ -40,10 +40,7 @@ export async function updateTodo(
 
   const newTodo = {
     ...todoItem,
-    name: updateTodoRequest.name,
-    done: updateTodoRequest.done,
-    dueDate: updateTodoRequest.dueDate,
-    attachmentUrl: updateTodoRequest.attachmentUrl
+    ...updateTodoRequest,
   }
 
   return await todosAccess.updateTodo(newTodo)

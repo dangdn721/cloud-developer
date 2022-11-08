@@ -24,32 +24,14 @@ provider:
     INDEX_NAME: TodosIndex-${self:provider.stage}
     TODO_IMAGES_S3_BUCKET: dangdn-serverless-todos-images-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
-  
-  
+
   iamRoleStatements:
-    - Effect: Allow
+    - Effect: "Allow"
       Action:
-        - codedeploy:*
-      Resource: 
-        - '*'
-    - Effect: Allow
-      Action:
-        - dynamodb:Scan
-        - dynamodb:Query
-        - dynamodb:PutItem
-        - dynamodb:GetItem
-        - dynamodb:DeleteItem
-        - dynamodb:UpdateItem
-      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
-    - Effect: Allow
-      Action:
-        - dynamodb:Query
-      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}/index/${self:provider.environment.INDEX_NAME}
-    - Effect: Allow
-      Action:
-        - s3:PutObject
-        - s3:GetObject
-      Resource: arn:aws:s3:::${self:provider.environment.TODO_IMAGES_S3_BUCKET}/*
+        - "xray:PutTraceSegments"
+        - "xray:PutTelemetryRecords"
+      Resource:
+        - "*"
 
 functions:
 
@@ -147,6 +129,15 @@ functions:
             - s3:PutObject
             - s3:GetObject
           Resource: arn:aws:s3:::${self:provider.environment.TODO_IMAGES_S3_BUCKET}/*
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:UpdateItem
+          Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+          Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}/index/${self:provider.environment.INDEX_NAME}
 
 resources:
   Resources:
