@@ -38,7 +38,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
   const newData: UpdateTodoRequest = {
     ...todoItem,
-    attachmentUrl: signedUrl,
+    attachmentUrl: `https://${bucketName}.s3.amazonaws.com/${todoId}`,
   }
   const updatedTodo = await updateTodo(todoItem, newData)
   
