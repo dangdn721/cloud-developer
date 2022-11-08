@@ -1,5 +1,5 @@
 import 'source-map-support/register'
-import { getUserTodos } from '../../helpers/todos';
+import { getUserTodos } from '../../businessLogic/todos';
 import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda';
 import { createLogger } from '../../utils/logger'
 
