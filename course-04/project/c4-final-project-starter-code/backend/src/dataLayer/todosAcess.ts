@@ -60,6 +60,10 @@ export class TodosAccess {
   }
 
   async createTodo(todo: TodoItem): Promise<TodoItem> {
+
+    if (todo.name)
+    throw new Error('Todo name can not bank')
+
     await this.docClient.put({
       TableName: this.todosTable,
       Item: todo

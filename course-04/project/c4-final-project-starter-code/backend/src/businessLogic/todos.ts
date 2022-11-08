@@ -43,12 +43,10 @@ export async function updateTodo(
     name: updateTodoRequest.name,
     done: updateTodoRequest.done,
     dueDate: updateTodoRequest.dueDate,
-  }
-  if(updateTodoRequest !== undefined) {
-      newTodo.attachmentUrl = updateTodoRequest.attachmentUrl
+    attachmentUrl: updateTodoRequest.attachmentUrl
   }
 
-  return await todosAccess.updateTodo(todoItem)
+  return await todosAccess.updateTodo(newTodo)
 }
 
 export async function getTodo(
