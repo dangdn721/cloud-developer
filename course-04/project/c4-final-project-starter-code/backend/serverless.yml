@@ -30,6 +30,8 @@ provider:
     - Effect: Allow
       Action:
         - codedeploy:*
+      Resource: 
+        - '*'
     - Effect: Allow
       Action:
         - dynamodb:Scan
