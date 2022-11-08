@@ -1,4 +1,5 @@
-# TODO: Change the name of the org 
+# TODO: Change the name of the org
+org: dangdn
 app: serverless-todo-app
 service: serverless-todo-app
 
@@ -8,7 +9,7 @@ plugins:
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs14.x
   lambdaHashingVersion: '20201221'
 
   stage: ${opt:stage, 'dev'}
@@ -21,7 +22,7 @@ provider:
   environment:
     TODOS_TABLE: Todos-${self:provider.stage}
     INDEX_NAME: TodosIndex-${self:provider.stage}
-    TODO_IMAGES_S3_BUCKET: jose-serverless-todos-images-${self:provider.stage}
+    TODO_IMAGES_S3_BUCKET: dangdn-serverless-todos-images-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
   
   
@@ -29,8 +30,7 @@ provider:
     - Effect: Allow
       Action:
         - codedeploy:*
-      Resource:
-        - '*'
+      Resource: '*'
     - Effect: Allow
       Action:
         - dynamodb:Scan

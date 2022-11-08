@@ -2,7 +2,6 @@ import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda'
 import { deleteTodo, getTodo } from '../../helpers/todos'
-import { headers } from '../utils'
 import { createLogger } from '../../utils/logger'
 
 const logger = createLogger('delete')
@@ -18,14 +17,20 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     if (!todoItem) {
         return {
             statusCode: 404,
-            headers,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true
+            },
             body: ''
         }
     }
     const result = await deleteTodo(todoItem)
     return {
         statusCode: 204,
-        headers,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': true
+        },
         body: JSON.stringify({
             result
         })

@@ -2,7 +2,6 @@ import { APIGatewayProxyHandler, APIGatewayProxyEvent, APIGatewayProxyResult } f
 import 'source-map-support/register'
 import { UpdateTodoRequest } from '../../requests/UpdateTodoRequest'
 import { updateTodo, getTodo } from '../../helpers/todos'
-import { headers } from '../utils'
 import { createLogger } from '../../utils/logger'
 
 const logger = createLogger('Update Logger')
@@ -17,7 +16,10 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     if (!todoItem) {
         return {
             statusCode: 404,
-            headers,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true
+            },
             body: ''
         }
     }
@@ -27,7 +29,10 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
     return {
         statusCode: 200,
-        headers,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': true
+        },
         body: JSON.stringify({
             updatedTodo
         })
