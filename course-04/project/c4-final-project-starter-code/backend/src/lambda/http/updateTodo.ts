@@ -3,6 +3,7 @@ import 'source-map-support/register'
 import { UpdateTodoRequest } from '../../requests/UpdateTodoRequest'
 import { updateTodo, getTodo } from '../../businessLogic/todos'
 import { createLogger } from '../../utils/logger'
+import { sendMessageToAllClient } from '../utils';
 
 const logger = createLogger('Update Logger')
 
@@ -26,6 +27,8 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     const newData: UpdateTodoRequest = JSON.parse(event.body)
     logger.info("Data Update: "+newData)
     const updatedTodo = await updateTodo(todoItem, newData)
+
+    sendMessageToAllClient(`Updated a todo successfully!!!`)
 
     return {
         statusCode: 200,

@@ -3,6 +3,7 @@ import 'source-map-support/register'
 import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda'
 import { deleteTodo, getTodo } from '../../businessLogic/todos'
 import { createLogger } from '../../utils/logger'
+import { sendMessageToAllClient } from '../utils';
 
 const logger = createLogger('delete')
 
@@ -25,6 +26,9 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
         }
     }
     const result = await deleteTodo(todoItem)
+
+    sendMessageToAllClient(`Deleted a todo successfully!!!`)
+
     return {
         statusCode: 204,
         headers: {

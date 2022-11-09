@@ -2,6 +2,7 @@ import 'source-map-support/register'
 import { getUserTodos } from '../../businessLogic/todos';
 import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda';
 import { createLogger } from '../../utils/logger'
+import { sendMessageToAllClient } from '../utils';
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   createLogger('Processing event: '+ event)
@@ -10,6 +11,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const jwtToken = split[1]
   const result = await getUserTodos(jwtToken)
 
+  sendMessageToAllClient(`Get a todo successfully!!!`)
 
     return {
       statusCode: 200,
